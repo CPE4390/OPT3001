@@ -12,7 +12,7 @@
 void InitPins(void);
 void ConfigInterrupts(void);
 
-#define _XTAL_FREQ 40000000L
+#define _XTAL_FREQ 32000000L
 
 char lcdstr[17];
 volatile char update;
@@ -23,14 +23,12 @@ void main(void) {
     OSCTUNEbits.PLLEN = 1;
     InitPins();
     LCDInit();
-    LCDClear();
+    lprintf(0, "OPT3001");
     ConfigInterrupts();
     InitOPT3001();
     while (1) {
         while (!update);  //Wait for new lux value
-        sprintf(lcdstr, "Lux=%.1f", lux);
-        LCDClearLine(0);
-        LCDWriteLine(lcdstr, 0);
+        lprintf(1, "Lux=%.1f", lux);
         update = 0;
     }
 }
@@ -57,7 +55,7 @@ void ConfigInterrupts(void) {
 
 
 
-void interrupt HighIsr(void) {
+void __interrupt(high_priority) HighIsr(void) {
     
     //Check the source of the interrupt
     if (INTCON3bits.INT1IF == 1) {

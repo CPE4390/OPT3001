@@ -11,7 +11,7 @@ void InitOPT3001(void) {
     OPT3001WriteRegister(CONFIG_REG, 0xCC10); //Continuous conversion, 800ms conversion time, latched
 }
 
-void OPT3001WriteRegister(char reg, int value) {
+void OPT3001WriteRegister(char reg, unsigned int value) {
     char data;
     SSP2CON2bits.SEN = 1; //Start condition
     while (SSP2CON2bits.SEN == 1);

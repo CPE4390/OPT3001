@@ -28,7 +28,7 @@ extern "C" {
 #endif
 
     void InitOPT3001(void);
-    void OPT3001WriteRegister(char reg, int value);
+    void OPT3001WriteRegister(char reg, unsigned int value);
     int OPT3001ReadRegister(char reg);
     double OPT3001ReadLux(void);
 
